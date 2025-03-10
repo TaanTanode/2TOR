@@ -14,8 +14,8 @@ exports.register = async(req,res)=>{
             return res.status(400).json({ message: 'Password is required!!!'})
         }
 
-        //check email in DB
-        
+        //check email in Database
+
 
 
 
