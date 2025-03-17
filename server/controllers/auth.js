@@ -22,12 +22,24 @@ exports.register = async(req,res)=>{
                 email: email //ตัวหน้าคือ field ใน DB เรา,ตัวหลังคือที่ประกาศไว้ข้างบน
             }
         })
-        console.log(user)
+        if(user){
+            return res.status(400).json({ message: "Email already exist!!!"})
+        }
+        //step 3 hashpassword
+        const hashPassword = await bcrypt.hash(password, 10)
+        console.log(hashPassword)
+
+        //step 4 register
+        await prisma.user.create({
+            data:{
+                email: email,
+                password: hashPassword
+            }
+        })
 
 
-
-        console.log(email, password)
-        res.send('Hello Register in Controller')
+        
+        res.send('Register Success')
     }catch(err){
         //error
         console.log(err)
