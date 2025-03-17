@@ -68,10 +68,22 @@ exports.login = async(req,res)=>{
             return res.status(400).json({ message: 'Password Invalid!!!'})
         }
         //step 3 chech payload
-        //step 4 generate token
+        const payload = {
+            id: user.id,
+            email: user.email,
+            role: user.role
+        }
+        
 
-        console.log(email, password)
-        res.send("Hello Login in Controller")
+        //step 4 generate token
+        jwt.sign(payload,process.env.SECRET,{ expiresIn: '1d' },(err,token)=>{
+            if(err){
+                return res.status(500).json({ message: "Server Error"})
+            }
+            res.json({ payload, token })
+        })
+
+        
     }catch(err){
         //error
         console.log(err)
