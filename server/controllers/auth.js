@@ -1,4 +1,6 @@
-
+const prisma = require('../config/prisma')
+const bcrypt = require('bcryptjs')
+const jwt = require('jasonwebtoken')
 
 exports.register = async(req,res)=>{
     //code
@@ -15,7 +17,12 @@ exports.register = async(req,res)=>{
         }
 
         //check email in Database
-
+        const user = await prisma.user.findFirst({
+            where:{
+                email: email //ตัวหน้าคือ field ใน DB เรา,ตัวหลังคือที่ประกาศไว้ข้างบน
+            }
+        })
+        console.log(user)
 
 
 
