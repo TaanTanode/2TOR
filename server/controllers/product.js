@@ -34,8 +34,16 @@ exports.create = async(req,res)=>{
 exports.list = async(req,res)=>{
     try{
         //code
-        
-        res.send("Hello List Product")
+        const { count } = req.params
+        const products = await prisma.product.findMany({
+            take: parseInt(count),
+            orderBy: { createdAt : "desc" },
+            include:{ //ฟิลแบบการ join ตาราง
+                category: true,
+                images: true
+            }
+        })
+        res.send(products)
     }catch(err){
         //error
         console.log(err)
