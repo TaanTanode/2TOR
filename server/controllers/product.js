@@ -195,7 +195,7 @@ exports.searchFilters = async (req, res) => {
         }
         if (price) {
             console.log('price-->', price)
-        }
+        }s
 
         // res.send("Hello searchFilters Product")
     } catch (err) {
