@@ -74,13 +74,13 @@ model Category {
 }
 
 model Cart {
-  id        Int             @id @default(autoincrement())
-  products  ProductOnCart[]
-  cartTotal Float
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-  orderBy   User            @relation(fields: [orderById], references: [id])
-  orderById Int
+  id          Int             @id @default(autoincrement())
+  products    ProductOnCart[]
+  cartTotal   Float
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  orderedBy   User            @relation(fields: [orderedById], references: [id])
+  orderedById Int
 }
 
 model ProductOnCart {
