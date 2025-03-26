@@ -217,6 +217,8 @@ const handleCategory = async (req,res,categoryId)=>{
         res.status(500).json({ message: 'Server Error'})
     }
 }
+
+
 exports.searchFilters = async (req, res) => {
     try {
         //code
