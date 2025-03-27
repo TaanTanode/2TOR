@@ -1,0 +1,20 @@
+import axios from "axios";
+
+
+
+
+export const createCategory = async (token, form) => {
+    return axios.post('http://localhost:5000/api/category', form, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+export const listCategory = async (token) => {
+    return axios.get('http://localhost:5000/api/category', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
