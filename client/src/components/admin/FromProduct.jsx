@@ -32,7 +32,7 @@ const FromProduct = () => {
 
     useEffect(() => {
         getCategory(token)
-        getProduct(token, 20)
+        getProduct(token, 100)
     }, [])
 
 
