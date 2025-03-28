@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma")
+const cloudinary = require('cloudinary').v2 ;
 
 exports.create = async (req, res) => {
     try {
@@ -167,7 +168,7 @@ const handleQuery = async (req, res, query) => {
                     contains: query,
                 }
             },
-            include:{
+            include: {
                 category: true,
                 images: true
             }
@@ -178,43 +179,43 @@ const handleQuery = async (req, res, query) => {
         res.status(500).json("Search Error")
     }
 }
-const handlePrice = async (req,res,priceRange)=>{
-    try{
+const handlePrice = async (req, res, priceRange) => {
+    try {
         const products = await prisma.product.findMany({
-            where:{
-                price:{
+            where: {
+                price: {
                     gte: priceRange[0],
                     lte: priceRange[1]
                 }
             },
-            include:{
+            include: {
                 category: true,
                 images: true
             }
         })
         res.send(products)
-    }catch(err){
+    } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Server Error'})
+        res.status(500).json({ message: 'Server Error' })
     }
 }
-const handleCategory = async (req,res,categoryId)=>{
-    try{
+const handleCategory = async (req, res, categoryId) => {
+    try {
         const products = await prisma.product.findMany({
-            where:{
-                categoryId:{
-                    in: categoryId.map((id)=> Number(id))
+            where: {
+                categoryId: {
+                    in: categoryId.map((id) => Number(id))
                 }
             },
-            include:{
+            include: {
                 category: true,
                 images: true
             }
         })
         res.send(products)
-    }catch(err){
+    } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Server Error'})
+        res.status(500).json({ message: 'Server Error' })
     }
 }
 
@@ -226,15 +227,15 @@ exports.searchFilters = async (req, res) => {
 
         if (query) {
             console.log('query-->', query)
-            await handleQuery(req,res,query)
+            await handleQuery(req, res, query)
         }
         if (category) {
             console.log('category-->', category)
-            await handleCategory(req,res,category)
+            await handleCategory(req, res, category)
         }
         if (price) {
             console.log('price-->', price)
-            await handlePrice(req,res,price)
+            await handlePrice(req, res, price)
         }
 
         // res.send("Hello searchFilters Product")
@@ -243,5 +244,39 @@ exports.searchFilters = async (req, res) => {
         //error
         console.log(err)
         res.status(500).json({ message: "Server Error" })
+    }
+}
+
+
+// Configuration
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+
+
+exports.createImages = async (req, res) => {
+    try {
+        // console.log(req.body)
+        const result = await cloudinary.uploader.upload(req.body.image,{
+            public_id: `Taan-${Date.now()}`,
+            resource_type: 'auto',
+            folder: '2TOR'
+        })
+        res.send(result)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ massage: "Server error"})
+    }
+}
+
+exports.removeImage = async (req, res) => {
+    try {
+        res.send('Hello Remove Image')
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ massage: "Server error"})
     }
 }
