@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import useEcomStore from '../../store/ecom-store'
-import { createProduct } from '../../api/product'
+import { createProduct, deleteProduct } from '../../api/product'
 import { toast } from 'react-toastify'
 import Uploadfile from './Uploadfile'
-
-
+import { Link } from 'react-router-dom'
+import { Pencil } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 
 
 
 const initialState = {
-    "title": "Core i7",
-    "description": "desc",
-    "price": 200,
-    "quantity": 20,
+    "title": "",
+    "description": "",
+    "price": 0,
+    "quantity": 0,
     "categoryId": '',
     "images": []
 }
@@ -26,7 +27,14 @@ const FromProduct = () => {
     const products = useEcomStore((state) => state.products)
     // console.log(products)
 
-    const [form, setForm] = useState(initialState)
+    const [form, setForm] = useState({
+        "title": "",
+        "description": "",
+        "price": 0,
+        "quantity": 0,
+        "categoryId": '',
+        "images": []
+    })
 
 
 
@@ -49,10 +57,25 @@ const FromProduct = () => {
         try {
             const res = await createProduct(token, form)
             console.log(res)
+            setForm(initialState)
+            getProduct(token)
             toast.success(`เพิ่มข้อมูล ${res.data.title} สำเร็จ`)
 
         } catch (err) {
             console.log(err)
+        }
+    }
+    const handleDelete = async (id) => {
+
+        if (window.confirm('จะลบจริงๆ หรอ')) {
+            try {
+                const res = await deleteProduct(token, id)
+                console.log(res)
+                toast.success('Deleted สินค้าเรียบร้อย')
+                getProduct(token)
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
@@ -110,15 +133,19 @@ const FromProduct = () => {
                 {/* Upload file*/}
                 <Uploadfile form={form} setForm={setForm} />
 
-                
-                <button className='bg-blue-500'>เพิ่มสินค้า</button>
+
+                <button className='bg-blue-500 p-2 rounded-md shadow-md
+                hover:scale-105 hover:-translate-y-1 hover:duration-200'>
+                    เพิ่มสินค้า
+                </button>
 
                 <hr />
                 <br />
-                <table className="table">
+                <table className="table w-full border">
                     <thead>
-                        <tr>
+                        <tr className='bg-gray-200 border'>
                             <th scope="col">No.</th>
+                            <th scope="col">รูปภาพ</th>
                             <th scope="col">ชื่อสินค้า</th>
                             <th scope="col">รายละเอียด</th>
                             <th scope="col">ราคา</th>
@@ -136,15 +163,37 @@ const FromProduct = () => {
                                 return (
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
+
+                                        <td>
+                                            {
+                                                item.images.length > 0
+                                                    ? <img
+                                                        className='w-24 h-24 rounded-lg shadow-md'
+                                                        src={item.images[0].url} />
+                                                    : <div
+                                                        className='w-24 h-24 bg-gray-200 rounded-md flex items-center justify-center shadow-sm'
+                                                    >No Image</div>
+                                            }
+                                        </td>
+
                                         <td>{item.title}</td>
                                         <td>{item.description}</td>
                                         <td>{item.price}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
                                         <td>{item.updatedAt}</td>
-                                        <td>
-                                            <p>แก้ไข</p>
-                                            <p>ลบ</p>
+                                        <td className='flex gap-2'>
+                                            <p className='bg-yellow-500 rounded-md p-1 hover:scale-105 hover:-translate-y-1 hover:duration-200 shadow-md'>
+                                                <Link to={'/admin/product/' + item.id}>
+                                                    <Pencil />
+                                                </Link>
+                                            </p>
+                                            <p
+                                                className='bg-red-500 rounded-md p-1 hover:scale-105 hover:-translate-y-1 hover:duration-200 shadow-md'
+                                                onClick={() => handleDelete(item.id)}
+                                            >
+                                                <Trash2 />
+                                            </p>
                                         </td>
                                     </tr>
                                 )

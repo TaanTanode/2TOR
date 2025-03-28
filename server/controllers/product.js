@@ -1,5 +1,14 @@
 const prisma = require("../config/prisma")
-const cloudinary = require('cloudinary').v2 ;
+const cloudinary = require('cloudinary').v2;
+
+
+// Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 exports.create = async (req, res) => {
     try {
@@ -120,13 +129,34 @@ exports.remove = async (req, res) => {
         const { id } = req.params
 
         //เกียมตัว
+        //step 1 ค้นหาสินค้า include images
+        const product = await prisma.product.findFirst({
+            where: { id: Number(id) },
+            include: { images: true }
+        })
+        if (!product) {
+            return res.status(400).json({ message: 'Product not Found!!!' })
+        }
+        // console.log(product)
 
-
+        //step 2 Promise ลบรูปใน cloud ลบแบบรอ
+        const deleteImage = product.images.map((image) =>
+            new Promise((resolve, reject) => {
+                //ลบจาก cloud
+                cloudinary.uploader.destroy(image.public_id, (error, result) => {
+                    if (error) reject(error)
+                    else resolve(result)
+                })
+            })
+        )
+        await Promise.all(deleteImage)
+        //step 3 ลบสินค้า
         await prisma.product.delete({
             where: {
                 id: Number(id)
             }
         })
+
         res.send("Delete Success")
     } catch (err) {
         //error
@@ -248,19 +278,13 @@ exports.searchFilters = async (req, res) => {
 }
 
 
-// Configuration
-cloudinary.config({ 
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-    api_key: process.env.CLOUDINARY_API_KEY, 
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 
 
 exports.createImages = async (req, res) => {
     try {
         // console.log(req.body)
-        const result = await cloudinary.uploader.upload(req.body.image,{
+        const result = await cloudinary.uploader.upload(req.body.image, {
             public_id: `Taan-${Date.now()}`,
             resource_type: 'auto',
             folder: '2TOR'
@@ -268,21 +292,21 @@ exports.createImages = async (req, res) => {
         res.send(result)
     } catch (err) {
         console.log(err)
-        res.status(500).json({ massage: "Server error"})
+        res.status(500).json({ massage: "Server error" })
     }
 }
 
 exports.removeImage = async (req, res) => {
     try {
-        
-        const { public_id }= req.body
+
+        const { public_id } = req.body
         // console.log(public_id)
-        cloudinary.uploader.destroy(public_id, (result)=>{
+        cloudinary.uploader.destroy(public_id, (result) => {
             res.send('Remove Image Success!!!')
         })
-        
+
     } catch (err) {
         console.log(err)
-        res.status(500).json({ massage: "Server error"})
+        res.status(500).json({ massage: "Server error" })
     }
 }
