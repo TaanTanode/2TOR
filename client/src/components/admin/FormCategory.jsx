@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { createCategory, listCategory } from '../../api/Category'
+import { createCategory, listCategory, removeCategory } from '../../api/Category'
 import useEcomStore from '../../store/ecom-store'
 import { toast } from 'react-toastify'
 
@@ -37,6 +37,21 @@ const FormCategory = () => {
       console.log(err)
     }
   }
+  const handleRemove = async (id) => {
+    console.log(id)
+    try {
+      const res = await removeCategory(token, id)
+      console.log(res)
+      toast.success(`delete ${res.data.name} success`)
+      getCategory(token)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
+
+
   return (
     <div className='container mx-auto p-4 bg-white shadow-md'>
       <h1>Category Management</h1>
@@ -63,7 +78,10 @@ const FormCategory = () => {
                 {item.name}
               </span>
 
-              <button>Delete</button>
+              <button
+                className='bg-red-500'
+                onClick={() => handleRemove(item.id)}
+              >Delete</button>
             </li>
           )
         }

@@ -18,3 +18,11 @@ export const listCategory = async (token) => {
         }
     })
 }
+
+export const removeCategory = async (token,id) => {
+    return axios.delete('http://localhost:5000/api/category/'+id, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
