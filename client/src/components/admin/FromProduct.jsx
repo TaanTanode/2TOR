@@ -39,8 +39,8 @@ const FromProduct = () => {
 
 
     useEffect(() => {
-        getCategory(token)
-        getProduct(token, 100)
+        getCategory()
+        getProduct(100)
     }, [])
 
 
@@ -58,7 +58,7 @@ const FromProduct = () => {
             const res = await createProduct(token, form)
             console.log(res)
             setForm(initialState)
-            getProduct(token)
+            getProduct()
             toast.success(`เพิ่มข้อมูล ${res.data.title} สำเร็จ`)
 
         } catch (err) {
@@ -72,7 +72,7 @@ const FromProduct = () => {
                 const res = await deleteProduct(token, id)
                 console.log(res)
                 toast.success('Deleted สินค้าเรียบร้อย')
-                getProduct(token)
+                getProduct()
             } catch (err) {
                 console.log(err)
             }
