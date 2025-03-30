@@ -45,14 +45,18 @@ model Product {
 }
 
 model Order {
-  id          Int              @id @default(autoincrement())
-  products    ProductOnOrder[]
-  cartTotal   Float
-  orderStatus String           @default("Not Process")
-  orderedBy   User             @relation(fields: [orderedById], references: [id])
-  orderedById Int
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id              Int              @id @default(autoincrement())
+  products        ProductOnOrder[]
+  cartTotal       Float
+  orderStatus     String           @default("Not Process")
+  orderedBy       User             @relation(fields: [orderedById], references: [id])
+  orderedById     Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  stripePaymentId String?
+  amount          Int              @default(0)
+  status          String           @default("pending")
+  currency        String           @default("USD")
 }
 
 model ProductOnOrder {

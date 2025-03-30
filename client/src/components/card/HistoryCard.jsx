@@ -3,19 +3,19 @@ import { getOrders } from '../../api/user'
 import useEcomStore from '../../store/ecom-store'
 
 const HistoryCard = () => {
-    const token = useEcomStore((state) => state.token)
-    console.log(token)
+    const token = useEcomStore((s) => s.token)
+    // console.log(token)
     const [orders, setOrders] = useState([])
 
 
     useEffect(() => {
-        handleGetOrders(token)
+        hdlGetOrders(token)
     }, [])
 
-    const handleGetOrders = (token) => {
+    const hdlGetOrders = (token) => {
         getOrders(token)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 setOrders(res.data.orders)
             })
             .catch((err) => {
@@ -26,51 +26,73 @@ const HistoryCard = () => {
 
 
     return (
-        <div>
+        <div className='space-y-4'>
             <h1 className='text-2xl font-bold'>ประวัติการสั่งซื้อ</h1>
 
             {/* คลุม  table */}
-            <div>
+            <div className='space-y-4'>
                 {/* card loop order*/}
-                
-                <div className='bg-gray-100 p-4 rounded-md shadow-md'>
-                    {/* ทีมงาน header */}
-                    <div className='flex justify-between'>
-                        <div>
-                            <p className='text-sm'>Order date</p>
-                            <p className='font-bold'>วันที่ ....</p>
-                        </div>
-                        <div>
-                            Status
-                        </div>
-                    </div>
-                    {/* ทีมงาน table loop product*/}
-                    <div>
-                        <table className='border w-full'>
-                            <tr className='bg-gray-200'>
-                                <th>สินค้า</th>
-                                <th>ราคา</th>
-                                <th>จำนวน</th>
-                                <th>รวม</th>
-                            </tr>
-                            <tr>
-                                <td>GTX 4060</td>
-                                <td>13900</td>
-                                <td>1</td>
-                                <td>2000</td>
-                            </tr>
+                {orders?.map((item, index) => {
+                    // console.log(item)
+                    return (
+                        <div
+                            key={index}
+                            className='bg-gray-100 p-4 rounded-md shadow-md'>
+                            {/* ทีมงาน header */}
+                            <div className='flex justify-between'>
+                                <div>
+                                    <p className='text-sm'>Order date</p>
+                                    <p className='font-bold'>{item.updatedAt}</p>
+                                </div>
+                                <div>
+                                    {item.orderStatus}
+                                </div>
+                            </div>
+                            {/* ทีมงาน table loop product*/}
+                            <div>
+                                <table className='border w-full'>
+                                    <thead>
+                                        <tr className='bg-gray-200'>
+                                        <th>สินค้า</th>
+                                        <th>ราคา</th>
+                                        <th>จำนวน</th>
+                                        <th>รวม</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {
+                                            item.products?.map((product, index) => {
+                                                // console.log(product)
+                                                return (
+                                                <tr key={index}>
+                                                    <td>{product.product.title}</td>
+                                                    <td>{product.product.price}</td>
+                                                    <td>{product.count}</td>
+                                                    <td>{product.count * product.product.price}</td>
+                                                </tr>)
+                                            })
+                                        }
 
-                        </table>
-                    </div>
-                    {/* ทีมงาน total */}
-                    <div>
-                        <div className='text-right'>
-                            <p>ราคาสุทธิ</p>
-                            <p>50000</p>
-                        </div>
-                    </div>
+                                    </tbody>
 
-                </div>
+
+                                </table>
+                            </div>
+                            {/* ทีมงาน total */}
+                            <div>
+                                <div className='text-right'>
+                                    <p>ราคาสุทธิ</p>
+                                    <p>{item.cartTotal}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    )
+                })
+                }
+
+
 
 
 

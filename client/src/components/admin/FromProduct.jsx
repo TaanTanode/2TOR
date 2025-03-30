@@ -6,7 +6,7 @@ import Uploadfile from './Uploadfile'
 import { Link } from 'react-router-dom'
 import { Pencil } from 'lucide-react';
 import { Trash2 } from 'lucide-react';
-
+import { numberFormat } from '../../utils/number'
 
 
 
@@ -178,7 +178,7 @@ const FromProduct = () => {
 
                                         <td>{item.title}</td>
                                         <td>{item.description}</td>
-                                        <td>{item.price}</td>
+                                        <td>{numberFormat(item.price)}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
                                         <td>{item.updatedAt}</td>

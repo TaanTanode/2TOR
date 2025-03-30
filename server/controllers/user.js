@@ -60,7 +60,22 @@ exports.userCart = async (req, res) => {
             where: { id: Number(req.user.id) }
         })
         // console.log(user)
-
+        //check quantity
+        for (const item of cart) {
+            // console.log(item)
+            const product = await prisma.product.findUnique({
+                where: { id: item.id },
+                select: { quantity: true, title: true }
+            })
+            // console.log(item)
+            // console.log(product)
+            if (!product || item.count > product.quantity) {
+                return res.status(400).json({
+                    ok: false,
+                    message: `ขออภัย. สินค้า ${product?.title || 'product'} หมด`
+                })
+            }
+        }
         
 
 
@@ -184,6 +199,11 @@ exports.saveAddress = async (req, res) => {
 exports.saveOrder = async (req, res) => {
     try {
         //code
+        //step 0 check stripe
+        // console.log(req.body)
+        // return res.send('hello jukkru!!!')
+        const { id, amount, status, currency } = req.body.paymentIntent
+        
         //step 1 get user cart
         const userCart = await prisma.cart.findFirst({
             where: {
@@ -197,23 +217,8 @@ exports.saveOrder = async (req, res) => {
             return res.status(400).json({ ok: false, message: 'Cart is Empty' })
         }
 
-        //check quantity
-        for (const item of cart) {
-            // console.log(item)
-            const product = await prisma.product.findUnique({
-                where: { id: item.id },
-                select: { quantity: true, title: true }
-            })
-            console.log(item)
-            console.log(product)
-            if (!product || item.count > product.quantity) {
-                return res.status(400).json({
-                    ok: false,
-                    message: `ขออภัย. สินค้า ${product?.title || 'product'} หมด`
-                })
-            }
-        }
-
+        
+        const amountTHB = Number(amount) / 100
         //create new order
         const order = await prisma.order.create({
             data: {
@@ -227,7 +232,11 @@ exports.saveOrder = async (req, res) => {
                 orderedBy: {
                     connect: { id: req.user.id }
                 },
-                cartTotal: userCart.cartTotal
+                cartTotal: userCart.cartTotal,
+                stripePaymentId: id,
+                amount: amountTHB,
+                status: status,
+                currency: currency,
             }
         })
 
@@ -259,6 +268,8 @@ exports.saveOrder = async (req, res) => {
 exports.getOrder = async (req, res) => {
     try {
         //code
+        // console.log("User ID from request:", req.user.id);
+
         const orders = await prisma.order.findMany({
             where: { orderedById: Number(req.user.id) },
             include: {
@@ -269,7 +280,12 @@ exports.getOrder = async (req, res) => {
                 }
             }
         })
-        if (orders.length == 0) {
+
+        // console.log("Orders found:", orders);
+
+
+
+        if (orders.length === 0) {
             return res.status(400).json({ ok: false, message: 'No Order' })
         }
 
