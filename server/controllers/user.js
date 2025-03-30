@@ -61,6 +61,10 @@ exports.userCart = async (req, res) => {
         })
         // console.log(user)
 
+        
+
+
+
         //ลบ item ใน cart เก่าออกก่อน
         await prisma.productOnCart.deleteMany({
             where: {
@@ -192,11 +196,12 @@ exports.saveOrder = async (req, res) => {
         if (!userCart || userCart.products.length === 0) {
             return res.status(400).json({ ok: false, message: 'Cart is Empty' })
         }
+
         //check quantity
-        for (const item of userCart.products) {
+        for (const item of cart) {
             // console.log(item)
             const product = await prisma.product.findUnique({
-                where: { id: item.productId },
+                where: { id: item.id },
                 select: { quantity: true, title: true }
             })
             console.log(item)
@@ -208,6 +213,7 @@ exports.saveOrder = async (req, res) => {
                 })
             }
         }
+
         //create new order
         const order = await prisma.order.create({
             data: {
@@ -268,7 +274,7 @@ exports.getOrder = async (req, res) => {
         }
 
         res.json({ ok: true, orders })
-        
+
     } catch (err) {
         console.log(err)
         res.status(500).json({ message: 'Server Error' })
