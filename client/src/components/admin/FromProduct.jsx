@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { Pencil } from 'lucide-react';
 import { Trash2 } from 'lucide-react';
 import { numberFormat } from '../../utils/number'
-
+import { dateFormat } from '../../utils/dateformat'
 
 
 const initialState = {
@@ -181,7 +181,7 @@ const FromProduct = () => {
                                         <td>{numberFormat(item.price)}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
-                                        <td>{item.updatedAt}</td>
+                                        <td>{dateFormat(item.updatedAt)}</td>
                                         <td className='flex gap-2'>
                                             <p className='bg-yellow-500 rounded-md p-1 hover:scale-105 hover:-translate-y-1 hover:duration-200 shadow-md'>
                                                 <Link to={'/admin/product/' + item.id}>

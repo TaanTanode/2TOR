@@ -172,8 +172,12 @@ exports.listby = async (req, res) => {
         console.log(sort, order, limit)
         const products = await prisma.product.findMany({
             take: limit,
-            orderBy: { [sort]: order },
-            include: { category: true }
+            orderBy: { [sort]: 
+                order },
+            include: { 
+                category: true,
+                images: true
+            }
         })
 
 

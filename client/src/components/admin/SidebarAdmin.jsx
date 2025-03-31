@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, UserRoundCog,LayoutList,ShoppingBasket,ClipboardList,LogOut  } from 'lucide-react';
 
 const SidebarAdmin = () => {
     return (
@@ -31,7 +31,7 @@ const SidebarAdmin = () => {
                             : 'text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center'
                     }
                 >
-                    <LayoutDashboard className='mr-2' />
+                    <UserRoundCog className='mr-2' />
                     Manage
                 </NavLink>
 
@@ -44,7 +44,7 @@ const SidebarAdmin = () => {
                             : 'text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center'
                     }
                 >
-                    <LayoutDashboard className='mr-2' />
+                    <LayoutList  className='mr-2' />
                     Category
                 </NavLink>
 
@@ -57,7 +57,7 @@ const SidebarAdmin = () => {
                             : 'text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center'
                     }
                 >
-                    <LayoutDashboard className='mr-2' />
+                    <ShoppingBasket  className='mr-2' />
                     Product
                 </NavLink>
                 
@@ -70,7 +70,7 @@ const SidebarAdmin = () => {
                             : 'text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center'
                     }
                 >
-                    <LayoutDashboard className='mr-2' />
+                    <ClipboardList  className='mr-2' />
                     Orders
                 </NavLink>
 
@@ -89,7 +89,7 @@ const SidebarAdmin = () => {
                             : 'text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center'
                     }
                 >
-                    <LayoutDashboard className='mr-2' />
+                    <LogOut  className='mr-2' />
                     Logout
                 </NavLink>
             </div>

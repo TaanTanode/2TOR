@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListCheck } from 'lucide-react';
 import useEcomStore from '../../store/ecom-store';
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { createUserCart } from '../../api/user';
 import { toast } from 'react-toastify';
 import { numberFormat } from '../../utils/number';
@@ -19,13 +19,14 @@ const ListCart = () => {
         await createUserCart(token, { cart })
             .then((res) => {
                 console.log(res)
-                toast.success('บันทึกใส่ตะกร้าเรียบร้อย', 
-                    {position: "top-center",
-                });
+                toast.success('บันทึกใส่ตะกร้าเรียบร้อย',
+                    {
+                        position: "top-center",
+                    });
                 navigate('/checkout')
             })
             .catch((err) => {
-                console.log('err',err)
+                console.log('err', err)
                 toast.warning(err.response.data.message)
             })
     }
@@ -104,9 +105,10 @@ const ListCart = () => {
                             user
                                 ? (<Link>
                                     <button
+                                        disabled={cart.length < 1}
                                         onClick={handleSaveCart}
                                         className='bg-red-500 w-full 
-                    rounded-md text-white py-2 shadow-md hover:bg-red-700'>
+                    rounded-md text-white py-2 shadow-md hover:bg-red-600'>
                                         สั่งซื้อ
                                     </button>
                                 </Link>)

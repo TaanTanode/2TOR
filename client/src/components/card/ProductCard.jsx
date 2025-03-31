@@ -2,11 +2,21 @@ import React from 'react'
 import { ShoppingCart } from 'lucide-react';
 import useEcomStore from '../../store/ecom-store';
 import { numberFormat } from '../../utils/number';
+import * as motion from "motion/react-client"
 
 const ProductCard = ({ item }) => {
     const actionAddtocart = useEcomStore((state)=>state.actionAddtoCart)
     // console.log(item)
     return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.4,
+                scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+            }}
+            
+        >
         <div className='border rounded-md shadow-md p-2 w-48'>
             <div>
 
@@ -27,7 +37,7 @@ const ProductCard = ({ item }) => {
             </div>
 
             <div className='py-2'>
-                <p className='text-xl'>{item.title}</p>
+                <p className='text-xl truncate'>{item.title}</p>
                 <p className='text-sm text-gray-500'>{item.description}</p>
             </div>
 
@@ -38,7 +48,8 @@ const ProductCard = ({ item }) => {
                 className='bg-blue-500 rounded-md p-2 hover:bg-blue-700 shadow-md '><ShoppingCart /></button>
             </div>
         </div>
-    )
+    </motion.div>
+)
 }
 
 export default ProductCard
