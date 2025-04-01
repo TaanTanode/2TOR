@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import pic1 from "../../assets/pic1.jpeg";
-import pic2 from "../../assets/pic2.jpeg";
-import pic3 from "../../assets/pic3.jpeg";
-import pic4 from "../../assets/pic4.jpeg";
+import Free from "../../assets/Free.png";
+import T from "../../assets/T.png";
+import H from "../../assets/H.png";
+import R from "../../assets/R.png";
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -29,22 +29,22 @@ const ContentCarousel = () => {
                 <SwiperSlide>
                     <img
                         className='w-full'
-                        src={pic1} />
+                        src={Free} />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
                         className='w-full'
-                        src={pic2} />
+                        src={T} />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
                         className='w-full'
-                        src={pic3} />
+                        src={H} />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
                         className='w-full'
-                        src={pic4} />
+                        src={R} />
                 </SwiperSlide>
 
 

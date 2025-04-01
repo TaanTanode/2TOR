@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useEcomStore from '../store/ecom-store'
 import { ChevronDown } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 
 const MainNav = () => {
@@ -72,6 +73,8 @@ const MainNav = () => {
                             }
 
                         </NavLink>
+
+                        
 
                         
 
