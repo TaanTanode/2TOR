@@ -1,0 +1,41 @@
+
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres.iinkhwilsearrjcjcqpa:taantanode1428taan@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+      CLOUDINARY_CLOUD_NAME: dh6d75mh2
+      CLOUDINARY_API_KEY: 476249964199575
+      CLOUDINARY_API_SECRET: Lw6Ut6HcVvVeSy5MAwcRVT2dzxg
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: taan1428
+      MYSQL_DATABASE: ecom
+      MYSQL_USER: root
+      MYSQL_PASSWORD: taan1428
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
