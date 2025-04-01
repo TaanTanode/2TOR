@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import useEcomStore from '../../store/ecom-store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -49,28 +49,53 @@ const Login = () => {
 
 
   return (
-    <div>
-      Login
-      <form onSubmit={handleSubmit}>
+    <div className='min-h-screen flex 
+    items-center justify-center bg-gray-100 '>
+      <div className='w-full shadow-md bg-white p-8 max-w-md'>
 
-        Email
-        <input className='border'
-          onChange={handleOnChange}
-          name='email'
-          type='email'
-        />
-        Password
-        <input className='border'
-          onChange={handleOnChange}
-          name='password'
-          type='text'
-        />
 
-        <button className='bg-blue-500 rounded-md'>
+        <h1 className='text-2xl text-center my-4 font-bold '>
           Login
-        </button>
+        </h1>
+        <form onSubmit={handleSubmit}>
+          <div className='space-y-4'>
 
-      </form>
+            <input
+              placeholder='Email'
+              className='border w-full px-3 py-2 rounded-md
+            focus:outline-none focus:ring-2 focus:ring-black
+            focus:border-transparent'
+              onChange={handleOnChange}
+              name='email'
+              type='email'
+            />
+
+            <input
+              placeholder='Password'
+              className='border w-full px-3 py-2 rounded-md
+            focus:outline-none focus:ring-2 focus:ring-black
+            focus:border-transparent'
+              onChange={handleOnChange}
+              name='password'
+              type='password'
+            />
+
+            <Link 
+            to={'/register'}
+            className='w-full text-gray-500 text-sm
+             hover:text-gray-300 hover:duration-200 p-4
+            '>
+              Forget password?
+            </Link>
+
+            <button className='bg-black rounded-md w-full text-white py-2 font-bold
+            shadow-md hover:bg-gray-200 hover:text-black hover:duration-200
+            '>
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

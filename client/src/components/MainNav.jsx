@@ -19,13 +19,16 @@ const MainNav = () => {
     console.log(carts.length)
 
     return (
-        <nav className='bg-red-600 shadow-md'>
+        
+
+        
+        <nav className='bg-red-600 shadow-2xl h-20 py-2'>
             <div className='mx-auto px-4'>
                 <div className='flex justify-between h-16'>
-                    <div className='flex items-center gap-6'>
+                    <div className='flex items-center gap-6 text-xl text-white'>
                         <Link to={'/'}
-                            className='text-2xl font-bold'>
-                            LOGO
+                            className='font-extrabold text-3xl'>
+                            2TOR
                         </Link>
 
                         <NavLink
@@ -64,11 +67,13 @@ const MainNav = () => {
                             {
                                 carts.length > 0
                                 &&
-                                (<span className='absolute top-0 bg-red-500 
+                                (<span className='absolute top-3 bg-yellow-500 
                                 rounded-full px-2 text-white'>{carts.length}</span>)
                             }
 
                         </NavLink>
+
+                        
 
 
                     </div>
@@ -86,7 +91,7 @@ const MainNav = () => {
                         </button>
                         {
                             isOpen &&
-                            <div className='absolute top-16 bg-white shadow-md'>
+                            <div className='absolute top-16 bg-white shadow-md z-50'>
                                 <Link
                                     to={'/user/history'}
                                     className='block px-4 py-2 hover:bg-gray-200'>
@@ -105,7 +110,7 @@ const MainNav = () => {
 
 
                     </div>
-                                : <div className='flex items-center gap-4'>
+                                : <div className='flex items-center gap-4 text-white text-xl'>
 
                         <NavLink
                             className={({ isActive }) =>
@@ -137,6 +142,7 @@ const MainNav = () => {
                 </div>
             </div>
         </nav>
+        
     )
 }
 

@@ -21,7 +21,7 @@ const Shop = () => {
       </div>
       {/* SearchBar */}
       <div className='w-1/2 p-4 h-screen overflow-y-auto'>
-        <p className='text-2xl font-bold mb-4'>สินค้าทั้งหมด</p>
+        <p className='text-2xl font-bold mb-4'>All Product</p>
         <div className=' flex flex-wrap gap-4'>
           {/* Product card */}
           {

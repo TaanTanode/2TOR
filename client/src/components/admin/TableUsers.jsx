@@ -52,7 +52,7 @@ const TableUsers = () => {
 
   console.log(users)
   return (
-    <div className='container mx-auto p-4 bg-white shadow-md'>
+    <div className='container mx-auto p-4 bg-white shadow-md '>
       <table className='w-full'>
         <thead>
           <tr>
@@ -93,7 +93,7 @@ const TableUsers = () => {
                 </td>
                 <td>
                   <button
-                    className='bg-yellow-500 text-white p-2 rounded-md'
+                    className='items-center bg-yellow-500 text-black p-1 rounded-md shadow-md flex'
                     onClick={() => handleChangeUserStatus(el.id, el.enabled)}>
                     {el.enabled ? "Disable" : "Enable"}
                   </button>

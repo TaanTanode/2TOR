@@ -24,7 +24,7 @@ const ContentCarousel = () => {
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
-                className="mySwiper h-80 object-cover rounded-md"
+                className="mySwiper ้ h-80 object-cover rounded-md"
             >
                 <SwiperSlide>
                     <img

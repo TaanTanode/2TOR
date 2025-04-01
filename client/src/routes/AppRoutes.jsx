@@ -20,6 +20,7 @@ import ProtectRouteAdmin from './ProtectRouteAdmin'
 import EditProduct from '../pages/admin/EditProduct'
 import Payment from '../pages/user/Payment'
 import ManageOrders from '../pages/admin/ManageOrders'
+import Detail from '../pages/Detail'
 
 
 const router = createBrowserRouter([
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'shop', element: <Shop /> },
       { path: 'cart', element: <Cart /> },
+      { path: 'detail/:id', element: <Detail /> },
       
       { path: 'checkout', element: <Checkout /> },
       { path: 'login', element: <Login /> },

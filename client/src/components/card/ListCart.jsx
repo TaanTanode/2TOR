@@ -38,7 +38,7 @@ const ListCart = () => {
             {/* header */}
             <div className='flex gap-4 mb-4'>
                 <ListCheck size={36} />
-                <p className='text-2xl font-bold'>รายการสินค้า {cart.length} รายการ</p>
+                <p className='text-2xl font-bold'>Product {cart.length} List</p>
             </div>
 
             {/* list */}
@@ -81,7 +81,7 @@ const ListCart = () => {
                                 {/* right */}
                                 <div>
                                     <div className='font-bold text-blue-500'>
-                                        {numberFormat(item.price * item.count)}
+                                        ฿{numberFormat(item.price * item.count)}
                                     </div>
                                 </div>
                             </div>
@@ -93,9 +93,9 @@ const ListCart = () => {
 
                 {/* right */}
                 <div className='bg-white p-4 rounded-md shadow-md space-y-4'>
-                    <p className='text-2xl font-bold'>ยอดรวม</p>
+                    <p className='text-2xl font-bold'>Total</p>
                     <div className='flex justify-between'>
-                        <span>รวมสุทธิ</span>
+                        <span>Total Price</span>
                         <span className='text-2xl font-bold'>{numberFormat(getTotalPrice())}</span>
                     </div>
 
@@ -108,13 +108,13 @@ const ListCart = () => {
                                         disabled={cart.length < 1}
                                         onClick={handleSaveCart}
                                         className='bg-red-500 w-full 
-                    rounded-md text-white py-2 shadow-md hover:bg-red-600'>
-                                        สั่งซื้อ
+                    rounded-md text-white py-2 shadow-md hover:bg-red-600 text-xl'>
+                                        Order
                                     </button>
                                 </Link>)
                                 : (<Link to={'/login'}>
-                                    <button className='bg-blue-500 w-full 
-                    rounded-md text-white py-2 shadow-md hover:bg-blue-700'>
+                                    <button className='bg-yellow-500 w-full 
+                    rounded-md text-white py-2 shadow-md hover:bg-yellow-600 text-xl'>
                                         Login
                                     </button>
                                 </Link>)
@@ -126,8 +126,8 @@ const ListCart = () => {
 
                         <Link to={'/shop'}>
                             <button className='bg-gray-500 w-full 
-                    rounded-md text-white py-2 shadow-md hover:bg-gray-700'>
-                                แก้ไขรายการสินค้า
+                    rounded-md text-white text-xl py-2 shadow-md hover:bg-gray-700'>
+                                Edit
                             </button>
                         </Link>
                     </div>

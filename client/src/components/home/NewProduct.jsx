@@ -10,7 +10,7 @@ const NewProduct = () => {
     }, [])
 
     const loadData = () => {
-        listProductBy('updatedAt', 'desc', 6)
+        listProductBy('updatedAt', 'desc', 15)
             .then((res) => {
                 setData(res.data)
             })

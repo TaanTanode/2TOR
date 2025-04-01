@@ -13,7 +13,7 @@ const CartCard = () => {
     console.log(carts)
     return (
         <div>
-            <h1 className='text-2xl font-bold'>ตะกร้าสินค้า</h1>
+            <h1 className='text-2xl font-bold'>Product Cart</h1>
             {/* border */}
             <div className='border p-2'>
                 {/* Card */}
@@ -73,7 +73,7 @@ const CartCard = () => {
                             </div>
                             {/* right */}
                             <div className='font-bold text-blue-500'>
-                                {numberFormat(item.price * item.count)}
+                                ฿{numberFormat(item.price * item.count)}
                             </div>
                         </div>
                     </div>
@@ -82,11 +82,11 @@ const CartCard = () => {
                 {/* total */}
                 <div className='flex justify-between px-2'>
                     <span>รวม</span>
-                    <span>{numberFormat(getTotalPrice())}</span>
+                    <span>฿{numberFormat(getTotalPrice())}</span>
                 </div>
                 {/* Button */}
                 <Link to='/cart'>
-                    <button className='mt-4 bg-green-500 hover:bg-green-600
+                    <button className='mt-4 bg-red-600 hover:bg-red-700
                  text-white w-full py-2 rounded-md shadow-md'>
                         ดำเนินการชำระเงิน
                     </button>

@@ -8,11 +8,11 @@ const Home = () => {
     <div>
       <ContentCarousel />
 
-      <p className='text-2xl text-center my-4'>สินค้าขายดี</p>
+      <p className='font-extrabold text-4xl text-center my-4'>THE BEST SELLER</p>
       <BestSeller />
 
 
-      <p className='text-2xl text-center my-4'>สินค้าใหม่</p>
+      <p className='font-extrabold text-4xl text-center my-4'>NEW ARRIVAL</p>
       <NewProduct />
 
 

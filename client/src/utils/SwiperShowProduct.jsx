@@ -24,8 +24,8 @@ const SwiperShowProduct = ({ children }) => {
             breakpoints={{
                 280: {
                     
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
                 },
                 640: {
                     slidesPerView: 3,

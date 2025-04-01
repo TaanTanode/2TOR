@@ -40,7 +40,7 @@ const HistoryCard = () => {
 
     return (
         <div className='space-y-4'>
-            <h1 className='text-2xl font-bold'>ประวัติการสั่งซื้อ</h1>
+            <h1 className='text-2xl font-bold'>History Order</h1>
 
             {/* คลุม  table */}
             <div className='space-y-4'>
@@ -68,13 +68,13 @@ const HistoryCard = () => {
                             </div>
                             {/* ทีมงาน table loop product*/}
                             <div>
-                                <table className='border w-full'>
+                                <table className='border w-full text-xl'>
                                     <thead>
-                                        <tr className='bg-gray-200'>
-                                            <th>สินค้า</th>
-                                            <th>ราคา</th>
-                                            <th>จำนวน</th>
-                                            <th>รวม</th>
+                                        <tr className='bg-yellow-400'>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
 
@@ -99,9 +99,9 @@ const HistoryCard = () => {
                             </div>
                             {/* ทีมงาน total */}
                             <div>
-                                <div className='text-right'>
-                                    <p>ราคาสุทธิ</p>
-                                    <p>{numberFormat(item.cartTotal)}</p>
+                                <div className='text-right font-semibold'>
+                                    <p>Total Price: </p>
+                                    <p className='text-xl'>฿{numberFormat(item.cartTotal)}</p>
                                 </div>
                             </div>
 

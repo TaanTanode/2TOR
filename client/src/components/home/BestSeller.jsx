@@ -12,7 +12,7 @@ const BestSeller = () => {
     }, [])
 
     const loadData = () => {
-        listProductBy('sold', 'desc', 12)
+        listProductBy('sold', 'desc', 14)
             .then((res) => {
                 setData(res.data)
             })
@@ -24,8 +24,8 @@ const BestSeller = () => {
         <SwiperShowProduct>
             {
                 data?.map((item, index) =>(
-                    <SwiperSlide>
-                        <ProductCard item={item} key={index}/>
+                    <SwiperSlide className='justify-center'>
+                        <ProductCard item={item} key={index} />
                     </SwiperSlide>
                 )
                 )

@@ -59,7 +59,7 @@ const FromProduct = () => {
             console.log(res)
             setForm(initialState)
             getProduct()
-            toast.success(`เพิ่มข้อมูล ${res.data.title} สำเร็จ`)
+            toast.success(`Add ${res.data.title} Success`)
 
         } catch (err) {
             console.log(err)
@@ -67,11 +67,11 @@ const FromProduct = () => {
     }
     const handleDelete = async (id) => {
 
-        if (window.confirm('จะลบจริงๆ หรอ')) {
+        if (window.confirm('Do you want to delete')) {
             try {
                 const res = await deleteProduct(token, id)
                 console.log(res)
-                toast.success('Deleted สินค้าเรียบร้อย')
+                toast.success('Deleted Success')
                 getProduct()
             } catch (err) {
                 console.log(err)
@@ -83,7 +83,7 @@ const FromProduct = () => {
     return (
         <div className='container mx-auto p-4 bg-white shadow-md'>
             <form onSubmit={handleSubmit}>
-                <h1>เพิ่มข้อมูลสินค้า</h1>
+                <h1>Add Product Information</h1>
                 <input
                     className='border'
                     value={form.title}
@@ -136,23 +136,23 @@ const FromProduct = () => {
 
                 <button className='bg-blue-500 p-2 rounded-md shadow-md
                 hover:scale-105 hover:-translate-y-1 hover:duration-200'>
-                    เพิ่มสินค้า
+                    Add Product
                 </button>
 
                 <hr />
                 <br />
-                <table className="table w-full border">
+                <table className="table w-full border text-center items-center">
                     <thead>
                         <tr className='bg-gray-200 border'>
                             <th scope="col">No.</th>
-                            <th scope="col">รูปภาพ</th>
-                            <th scope="col">ชื่อสินค้า</th>
-                            <th scope="col">รายละเอียด</th>
-                            <th scope="col">ราคา</th>
-                            <th scope="col">จำนวน</th>
-                            <th scope="col">จำนวนที่ขาย</th>
-                            <th scope="col">วันที่อัพเดท</th>
-                            <th scope="col">จัดการ</th>
+                            <th scope="col">Picture</th>
+                            <th scope="col">name of product</th>
+                            <th scope="col">detail</th>
+                            <th scope="col">price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">sold</th>
+                            <th scope="col">Update at</th>
+                            <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -164,7 +164,7 @@ const FromProduct = () => {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
 
-                                        <td>
+                                        <td className='place-items-center text-center'>
                                             {
                                                 item.images.length > 0
                                                     ? <img
@@ -182,7 +182,7 @@ const FromProduct = () => {
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
                                         <td>{dateFormat(item.updatedAt)}</td>
-                                        <td className='flex gap-2'>
+                                        <td className='flex gap-2 p-5 justify-center'>
                                             <p className='bg-yellow-500 rounded-md p-1 hover:scale-105 hover:-translate-y-1 hover:duration-200 shadow-md'>
                                                 <Link to={'/admin/product/' + item.id}>
                                                     <Pencil />

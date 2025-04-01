@@ -76,7 +76,7 @@ const FormEditProduct = () => {
     return (
         <div className='container mx-auto p-4 bg-white shadow-md'>
             <form onSubmit={handleSubmit}>
-                <h1>เพิ่มข้อมูลสินค้า</h1>
+                <h1>Add Product Infomation</h1>
                 <input
                     className='border'
                     value={form.title}

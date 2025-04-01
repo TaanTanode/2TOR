@@ -50,13 +50,13 @@ const FormCategory = () => {
   return (
     <div className='container mx-auto p-4 bg-white shadow-md'>
       <h1>Category Management</h1>
-      <form className='my-4' onSubmit={handleSubmit}>
+      <form className='my-4 mx-2' onSubmit={handleSubmit}>
         <input
           onChange={(e) => setName(e.target.value)}
-          className='border'
+          className='border h-10'
           type='text'
         />
-        <button className='bg-blue-500'>Add Category</button>
+        <button className='bg-blue-500 rounded-md mx-2 px-2 h-10 mt-2'>Add Category</button>
       </form>
 
 
@@ -67,14 +67,14 @@ const FormCategory = () => {
         {
           categories.map((item, index) =>
             <li
-              className='flex justify-between my-2'
+              className='flex justify-between p-2 text-md border '
               key={index}>
               <span>
                 {item.name}
               </span>
 
               <button
-                className='bg-red-500'
+                className='bg-red-500 rounded-md h-8 px-3'
                 onClick={() => handleRemove(item.id)}
               >Delete</button>
             </li>
